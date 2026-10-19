@@ -5,7 +5,7 @@ window.writeups = [
     date: "12.09.2026",
     description: "Technical write-ups covering cybersecurity challenges involving network analysis, digital forensics, and miscellaneous investigation.",
     tags: ["forensics", "networking", "misc"],
-    url: "https://github.com/evelynV-exe/Cyber-Hero-Write-ups-2026"
+    url: "https://github.com/Gh0stP4cket/Cyber-Hero-Write-ups-2026"
   },
   {
     event: "picoCTF 2019 - shark on wire 1 & 2",
