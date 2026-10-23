@@ -1,0 +1,93 @@
+{
+  "id": "https://credforge.app/credentials/f983e7f2-5db4-4c8f-9e9d-699e5dd006d0",
+  "name": "DEADFACE CTF 2026 Writeup",
+  "type": [
+    "VerifiableCredential",
+    "OpenBadgeCredential"
+  ],
+  "proof": {
+    "type": "DataIntegrityProof",
+    "created": "2026-10-19T15:57:56Z",
+    "proofValue": "z2eXLK9LXL3HoFA1nAX7eYh2iWBvuBaW5TspWwR2gZUmVgwnLByhVVRcffPTUCQLk938Q5LksyumxTxaQSzEopVEC",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "https://credforge.app/issuers/c22735ae-d02c-4ba4-87db-a890f74a15eb#z6MkusK5KNKVDsECg6S5BmJZFbEqEJYynyKQ5DthPZsXrqGE"
+  },
+  "issuer": {
+    "id": "https://credforge.app/issuers/c22735ae-d02c-4ba4-87db-a890f74a15eb",
+    "url": "https://cyberhacktics.org",
+    "name": "Cyber Hacktics",
+    "type": [
+      "Profile"
+    ],
+    "email": "info@cyberhacktics.com",
+    "image": {
+      "id": "https://credforge.app/issuers/c22735ae-d02c-4ba4-87db-a890f74a15eb/images/1a5fd5b910f538c83eb8e4cb85943c703e7320026b1f01aa636cdad10b234220.png",
+      "type": "Image"
+    }
+  },
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+    "https://purl.imsglobal.org/spec/ob/v3p0/extensions.json"
+  ],
+  "evidence": [
+    {
+      "id": "https://github.com/Gh0stP4cket/deadface-2026-writeups",
+      "type": [
+        "Evidence"
+      ]
+    }
+  ],
+  "validFrom": "2026-10-19T00:00:00Z",
+  "credentialSchema": [
+    {
+      "id": "https://purl.imsglobal.org/spec/ob/v3p0/schema/json/ob_v3p0_achievementcredential_schema.json",
+      "type": "1EdTechJsonSchemaValidator2019"
+    }
+  ],
+  "credentialStatus": {
+    "id": "https://credforge.app/status/c22735ae-d02c-4ba4-87db-a890f74a15eb/1#128717",
+    "type": "BitstringStatusListEntry",
+    "statusPurpose": "revocation",
+    "statusListIndex": "128717",
+    "statusListCredential": "https://credforge.app/status/c22735ae-d02c-4ba4-87db-a890f74a15eb/1"
+  },
+  "credentialSubject": {
+    "type": [
+      "AchievementSubject"
+    ],
+    "identifier": [
+      {
+        "salt": "dfBqC9yZAIm1xZ5b3XaK6A",
+        "type": "IdentityObject",
+        "hashed": true,
+        "identityHash": "sha256$c2edd2d447af1b4df5cebca91be1c64951c2ef213106a590570b17e31c8e6cbe",
+        "identityType": "emailAddress"
+      },
+      {
+        "type": "IdentityObject",
+        "hashed": false,
+        "identityHash": "GhostPacket",
+        "identityType": "name"
+      }
+    ],
+    "achievement": {
+      "id": "https://credforge.app/achievements/3989471c-7fb9-422d-b0a7-cd53b0c44f18",
+      "name": "DEADFACE CTF 2026 Writeup",
+      "type": [
+        "Achievement"
+      ],
+      "image": {
+        "id": "https://credforge.app/achievements/3989471c-7fb9-422d-b0a7-cd53b0c44f18/images/c045135ac0c2dc2769c543be1910cadf19fbdaa22cacc37501232b3a4562fe31.png",
+        "type": "Image",
+        "caption": "DEADFACE CTF 2026 Writeup"
+      },
+      "criteria": {
+        "narrative": "Create and submit an original, technically accurate write-up explaining the methodology, tools, and steps used to solve at least one DEADFACE CTF 2026 challenge. The submission must be accepted by the organizing team."
+      },
+      "description": "Recognizes participants who contribute to the cybersecurity learning community by documenting their solutions to DEADFACE CTF 2026 challenges. This badge celebrates technical knowledge sharing, clear communication, and the ability to explain cybersecurity concepts and exploitation techniques.",
+      "achievementType": "Badge"
+    }
+  }
+}

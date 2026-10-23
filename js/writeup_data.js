@@ -62,6 +62,14 @@ window.writeups = [
     description: "AES cryptography challenge involving a timestamp-derived key and decrypting the provided ciphertext.",
     tags: ["Cryptography", "medium"],
     url: "https://medium.com/@inthepondddd/timestamped-secrets-picoctf-2026-cryptography-81dd923b720e"
+  },
+  {
+    event: "DEADFACE CTF 2026 Write up",
+    slug: "DEADFACE-CTF-2026-write-up",
+    date: "17.10.2026",
+    description: "Technical write-ups and solutions from DEADFACE CTF 2026",
+    tags: ["Cryptography", "github"],
+    url: "https://github.com/Gh0stP4cket/deadface-2026-writeups"
   }
 ];
 

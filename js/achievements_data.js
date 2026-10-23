@@ -64,7 +64,7 @@ window.achievements = {
     featured: true
   },
   'cyber-bootcamp-2026': { 
-    title: "Completed Cybersecurity Boot Camp", 
+    title: "Completed Cybersecurity Boot Camp Program", 
     date: "2026-08-21", 
     category: "CyberSecurity", 
     description: "Successfully completed the Cybersecurity Boot Camp 2026 program at Rajamangala University of Technology Lanna, fulfilling all requirements of the program.", 
@@ -90,6 +90,33 @@ window.achievements = {
     image: "img/cert/holmes2026.png", 
     link: "", 
     featured: true },
+  'Byte-Me-2026': { 
+    title: "Participated in ByteMe CTF 2026", 
+    date: "2026-10-09", 
+    category: "CyberSecurity", 
+    description: "A hybrid Jeopardy-style Capture The Flag competition organized by OWASP PCCOE and the Department of Computer Engineering, PCCOE, Pune", 
+    tags: ["Cybersecurity", "CTF"], 
+    image: "img/cert/byteme-ctf-2026.png", 
+    link: "", 
+    featured: true },
+  'deadface-participate-2026': { 
+    title: "Participated in DEADFACECTF 2026", 
+    date: "2026-10-17", 
+    category: "CyberSecurity",
+    description: "Participated in DEADFACE CTF 2026, a jeopardy-style cybersecurity competition hosted by Cyber Hacktics. Tackled hands-on challenges across multiple cybersecurity domains, including cryptography, digital forensics, memory analysis, network traffic investigation, and reverse engineering.",
+    tags: ["Cybersecurity", "CTF"], 
+    image: "img/cert/deadface-participate-2026.png", 
+    link: "", 
+    featured: true },
+  'deadface-writeups-2026': { 
+    title: "Writeups in DEADFACE CTF 2026", 
+    date: "2026-10-17", 
+    category: "CyberSecurity", 
+    description: "Documented solutions to DEADFACE CTF 2026 challenges through technical writeups, detailing the tools, investigation techniques, and step-by-step approaches used to solve challenges in cryptography, digital forensics, memory analysis, and other cybersecurity domains. These writeups showcase practical problem-solving skills and provide learning resources for other cybersecurity enthusiasts.", 
+    tags: ["Cybersecurity", "CTF"], 
+    image: "img/cert/deadface-writeup-2026.png", 
+    link: "", 
+    featured: true },
 };
 
 window.achievementOrder = [
@@ -99,5 +126,8 @@ window.achievementOrder = [
   "rmutl-python-competition",
   "cyber-bootcamp-2026",
   "cyber-hero-2026",
-  "holmes-2026"
+  "holmes-2026",
+  'Byte-Me-2026',
+  'deadface-participate-2026',
+  'deadface-writeups-2026',
 ];

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badges | GhostPacket@portfolio</title>
+<meta name="description" content="Verifiable digital badges earned at CTFs and cybersecurity events.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ---- Badge-page-specific styles (not in style.css) ---- */
+  .badges-hero { max-width: 1120px; margin: 0 auto; padding: 150px 24px 0; }
+  .badges-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--muted); text-decoration: none; font-size: 13px; margin-bottom: 28px;
+  }
+  .badges-back:hover { color: var(--text); }
+
+  .badges-controls {
+    max-width: 1120px; margin: 40px auto 0; padding: 0 24px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .badges-search input{
+    width: 100%; max-width: 360px;
+    background: var(--bg-raised); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 11px 14px; color: var(--text);
+    font-family: inherit; font-size: 13.5px;
+  }
+  .badges-search input:focus{ border-color: var(--accent); outline: none; }
+  .badges-filters{ display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-pill{
+    font-size: 12.5px; padding: 7px 13px; border-radius: 999px;
+    border: 1px solid var(--border-hover); color: var(--muted);
+    background: transparent; cursor: pointer; font-family: inherit;
+    transition: border-color 180ms var(--ease), color 180ms var(--ease), background 180ms var(--ease);
+  }
+  .filter-pill:hover{ border-color: var(--accent); color: var(--text); }
+  .filter-pill.active{ border-color: var(--accent); color: var(--accent); background: rgba(44,255,5,0.08); }
+  .filter-count{ font-size: 12px; color: var(--muted-dim); margin-left: auto; }
+
+  .badges-grid-wrap{ max-width: 1120px; margin: 0 auto; padding: 36px 24px 100px; }
+  .badges-empty{ color: var(--muted); font-size: 14px; padding: 40px 0; text-align: center; }
+
+  /* ---- details dialog ---- */
+  .badge-dialog{
+    width: min(760px, calc(100% - 32px));
+    max-height: calc(100vh - 48px);
+    margin: auto; padding: 0; overflow: auto;
+    background: var(--bg-raised); color: var(--text);
+    border: 1px solid var(--border-hover); border-radius: var(--radius-lg);
+  }
+  .badge-dialog::backdrop{ background: rgba(0,0,0,0.74); backdrop-filter: blur(3px); }
+  .badge-dialog-bar{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    background: var(--terminal-bg); font-size: 12px; color: var(--muted-dim);
+  }
+  .badge-dialog-close{
+    background: transparent; border: 1px solid var(--border-hover); color: var(--muted);
+    border-radius: var(--radius-sm); padding: 5px 11px; cursor: pointer;
+    font-family: inherit; font-size: 12px;
+    transition: border-color 180ms var(--ease), color 180ms var(--ease);
+  }
+  .badge-dialog-close:hover{ border-color: var(--accent); color: var(--accent); }
+  .badge-dialog-body{
+    display: grid; grid-template-columns: 210px 1fr; gap: 28px; padding: 26px;
+  }
+  .badge-dialog-body .badge-art{ height: 250px; margin-bottom: 0; }
+  .badge-dialog-body .badge-art img{ height: 200px; }
+  .badge-dialog h2{ font-size: 20px; line-height: 1.3; margin-bottom: 6px; }
+  .badge-dialog .lead{ color: var(--muted); font-size: 13.5px; margin-bottom: 20px; }
+  .badge-meta{
+    display: grid; grid-template-columns: 110px 1fr; gap: 8px 14px;
+    font-size: 13px; margin-bottom: 20px;
+  }
+  .badge-meta dt{ color: var(--muted-dim); }
+  .badge-meta dd{ color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+  .badge-meta a{ color: var(--accent); text-decoration: none; }
+  .badge-meta a:hover{ text-decoration: underline; }
+  .badge-criteria{
+    border-left: 2px solid var(--accent); padding: 4px 0 4px 14px;
+    margin-bottom: 22px;
+  }
+  .badge-criteria h4{
+    font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px; font-weight: 600;
+  }
+  .badge-criteria p{ color: var(--muted); font-size: 13.5px; }
+
+  @media (max-width: 640px){
+    .badges-hero{ padding-top: 120px; }
+    .badge-dialog-body{ grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+    .badge-dialog-body .badge-art{ height: 200px; }
+    .badge-dialog-body .badge-art img{ height: 160px; }
+    .badge-meta{ grid-template-columns: 90px 1fr; }
+  }
+</style>
+</head>
+<body data-page="badges">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html#hero" class="logo" aria-label="eve portfolio home">
+      <span class="prompt">&gt;_</span> GhostPacket@portfolio
+    </a>
+    <div class="nav-cta">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#education" class="nav-link">education</a>
+    <a href="index.html#achievements" class="nav-link">achievements</a>
+    <a href="index.html#badges" class="nav-link">badges</a>
+    <a href="index.html#competitions" class="nav-link">competitions</a>
+    <a href="index.html#writeups" class="nav-link">write-ups</a>
+    <a href="index.html#skills" class="nav-link">skills</a>
+    <a href="index.html#contact" class="nav-link">contact</a>
+</div>
+</header>
+
+<aside class="side-nav" aria-label="Primary">
+  <nav class="side-nav-list">
+    <a href="index.html#education" class="nav-link" data-section="education">education</a>
+    <a href="index.html#achievements" class="nav-link" data-section="achievements">achievements</a>
+    <a href="index.html#badges" class="nav-link" data-section="badges">badges</a>
+    <a href="index.html#competitions" class="nav-link" data-section="competitions">competitions</a>
+    <a href="index.html#writeups" class="nav-link" data-section="writeups">write-ups</a>
+    <a href="index.html#skills" class="nav-link" data-section="skills">skills</a>
+    <a href="index.html#contact" class="nav-link" data-section="contact">contact</a>
+  </nav>
+</aside>
+
+<main id="main">
+  <div class="badges-hero">
+    <a href="index.html#badges" class="badges-back">&larr; back to home</a>
+    <div class="post-eyebrow" style="font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Credentials</div>
+    <h1 class="section-title">Every badge, with proof you can verify.</h1>
+    <p class="section-desc">Digital badges issued by CTF organizers and training programs. Each one is a signed Open Badges credential that links back to its issuer, so it can be checked independently.</p>
+  </div>
+
+  <div class="badges-controls">
+    <div class="badges-search">
+      <input id="badges-search" type="text" placeholder="search by name, issuer or keyword&hellip;" autocomplete="off" aria-label="Search badges">
+    </div>
+    <div class="badges-filters" id="badges-filters">
+      <!-- category pills injected by script -->
+    </div>
+  </div>
+
+  <div class="badges-grid-wrap">
+    <div class="badges-grid" id="all-badges-grid">
+      <!-- Rendered by inline script below from js/badges_data.js -->
+    </div>
+    <div class="badges-empty" id="badges-empty" style="display:none;">No badges match that search/filter.</div>
+  </div>
+</main>
+
+<dialog class="badge-dialog" id="badge-dialog" aria-labelledby="badge-dialog-title">
+  <div class="badge-dialog-bar">
+    <span>~/badges/<span id="badge-dialog-key"></span></span>
+    <button type="button" class="badge-dialog-close" id="badge-dialog-close">close &times;</button>
+  </div>
+  <div class="badge-dialog-body" id="badge-dialog-body"></div>
+</dialog>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="logo"><span class="prompt">&gt;_</span> evelyn@portfolio</div>
+    <div class="footer-links">
+      <a href="https://github.com/Gh0stP4cket" class="footer-link" aria-label="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.5 0 12.3c0 5.44 3.44 10.05 8.2 11.68.6.11.82-.27.82-.6 0-.29-.01-1.07-.02-2.1-3.34.75-4.04-1.65-4.04-1.65-.55-1.43-1.34-1.81-1.34-1.81-1.09-.77.08-.76.08-.76 1.2.09 1.84 1.26 1.84 1.26 1.07 1.87 2.81 1.33 3.5 1.02.11-.79.42-1.33.76-1.64-2.67-.31-5.47-1.37-5.47-6.09 0-1.35.47-2.44 1.24-3.31-.12-.31-.54-1.56.12-3.26 0 0 1.01-.33 3.3 1.26a11.2 11.2 0 0 1 6 0c2.29-1.59 3.3-1.26 3.3-1.26.66 1.7.24 2.95.12 3.26.77.87 1.24 1.96 1.24 3.31 0 4.73-2.81 5.77-5.49 6.08.43.38.81 1.12.81 2.27 0 1.64-.02 2.96-.02 3.36 0 .33.22.72.83.6A12.32 12.32 0 0 0 24 12.3C24 5.5 18.63 0 12 0Z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/evelynbt" class="footer-link" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+      </a>
+      <a href="mailto:asyncbyevelyn@gmail.com" class="footer-link" aria-label="Email">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>
+      </a>
+    </div>
+    <div class="footer-copy">evelyn@portfolio:~$ echo $(date +%Y) &nbsp; → &nbsp; 2026.</div>
+  </div>
+</footer>
+
+<script src="js/badges_data.js"></script>
+<script src="js/script.js"></script>
+<script>
+  (function(){
+    const items = window.badges || {};
+    const order = (window.badgeOrder || Object.keys(items))
+      .slice()
+      .sort((a, b) => (Date.parse(items[b].date) || 0) - (Date.parse(items[a].date) || 0));
+
+    const grid = document.getElementById('all-badges-grid');
+    const emptyMsg = document.getElementById('badges-empty');
+    const filtersEl = document.getElementById('badges-filters');
+    const searchInput = document.getElementById('badges-search');
+    const dialog = document.getElementById('badge-dialog');
+    const dialogBody = document.getElementById('badge-dialog-body');
+    const dialogKey = document.getElementById('badge-dialog-key');
+
+    const allCategories = [...new Set(order.map(k => items[k].category).filter(Boolean))].sort();
+    let activeCategories = new Set();
+    let searchTerm = '';
+
+    function matches(key){
+      const b = items[key];
+      const inCategory = activeCategories.size === 0 || activeCategories.has(b.category);
+      const haystack = (b.name + ' ' + b.issuer + ' ' + (b.description || '') + ' ' + (b.tags || []).join(' ')).toLowerCase();
+      return inCategory && (!searchTerm || haystack.includes(searchTerm));
+    }
+
+    function render(){
+      const visible = order.filter(matches);
+      grid.innerHTML = visible.map(key => window.badgeCardHTML(key, { detailsButton: true })).join('');
+      emptyMsg.style.display = visible.length ? 'none' : 'block';
+    }
+
+    function updatePillStates(){
+      filtersEl.querySelectorAll('.filter-pill').forEach(btn => {
+        const cat = btn.dataset.cat;
+        const active = cat === '__all' ? activeCategories.size === 0 : activeCategories.has(cat);
+        btn.classList.toggle('active', active);
+      });
+      const count = document.getElementById('filter-count');
+      if(count) count.textContent = order.filter(matches).length + ' of ' + order.length;
+    }
+
+    function renderFilters(){
+      filtersEl.innerHTML =
+        '<button type="button" class="filter-pill" data-cat="__all">all</button>' +
+        allCategories.map(c => '<button type="button" class="filter-pill" data-cat="' + c + '">' + c + '</button>').join('') +
+        '<span class="filter-count" id="filter-count"></span>';
+      filtersEl.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cat = btn.dataset.cat;
+          if(cat === '__all') activeCategories.clear();
+          else if(activeCategories.has(cat)) activeCategories.delete(cat);
+          else activeCategories.add(cat);
+          updatePillStates();
+          render();
+        });
+      });
+      updatePillStates();
+    }
+
+    searchInput.addEventListener('input', e => {
+      searchTerm = e.target.value.trim().toLowerCase();
+      updatePillStates();
+      render();
+    });
+
+    // ---------- details dialog ----------
+    function dialogHTML(key){
+      const b = items[key];
+      const issuer = b.issuerUrl
+        ? '<a href="' + b.issuerUrl + '" target="_blank" rel="noopener noreferrer">' + b.issuer + '</a>'
+        : b.issuer;
+      const rows = [
+        ['issued by', issuer],
+        ['issued on', b.date],
+        ['category', b.category],
+        ['format', 'Open Badges 3.0 &middot; verifiable credential']
+      ];
+      if(b.verify) rows.push(['verify', '<a href="' + b.verify + '" target="_blank" rel="noopener noreferrer">check on CredForge &nearr;</a>']);
+      if(b.evidence) rows.push(['evidence', '<a href="' + b.evidence + '" target="_blank" rel="noopener noreferrer">view the work &nearr;</a>']);
+
+      const tags = (b.tags || []).map(t => '<span class="tag">' + t + '</span>').join('');
+      const links = [
+        b.certificate ? '<a href="' + b.certificate + '" target="_blank" rel="noopener" class="achievement-link">certificate</a>' : '',
+        b.json ? '<a href="' + b.json + '" download class="achievement-link">credential .json</a>' : ''
+      ].join('');
+
+      return '' +
+        '<div class="badge-art"><img src="' + b.image + '" alt="' + b.name + ' badge"></div>' +
+        '<div>' +
+          '<h2 id="badge-dialog-title">' + b.name + '</h2>' +
+          '<p class="lead">' + (b.description || '') + '</p>' +
+          '<div class="badge-criteria"><h4>how it was earned</h4><p>' + (b.criteria || '') + '</p></div>' +
+          '<dl class="badge-meta">' + rows.map(r => '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>').join('') + '</dl>' +
+          '<div class="achievement-tag-row">' + tags + '</div>' +
+          '<div class="badge-links">' + links + '</div>' +
+        '</div>';
+    }
+
+    function openBadge(key){
+      if(!items[key]) return;
+      dialogBody.innerHTML = dialogHTML(key);
+      dialogKey.textContent = key;
+      if(!dialog.open) dialog.showModal();
+      history.replaceState(null, '', '#' + key);
+    }
+
+    grid.addEventListener('click', e => {
+      const btn = e.target.closest('[data-badge]');
+      if(btn) openBadge(btn.dataset.badge);
+    });
+
+    document.getElementById('badge-dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', e => { if(e.target === dialog) dialog.close(); }); // backdrop click
+    dialog.addEventListener('close', () => history.replaceState(null, '', location.pathname + location.search));
+
+    // deep link from the homepage: badge.html#<key>
+    function openFromHash(){
+      const key = decodeURIComponent(location.hash.slice(1));
+      if(key && items[key]) openBadge(key);
+    }
+
+    renderFilters();
+    render();
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+  })();
+</script>
+
+</body>
+</html>

@@ -1516,3 +1516,133 @@ footer {
   line-height: 1.4;
   letter-spacing: 0.5px;
 }
+
+
+/* ---------- Badges (Open Badges / digital credentials) ---------- */
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.badge-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-raised);
+  padding: 22px;
+  transition:
+    border-color 200ms var(--ease),
+    transform 200ms var(--ease);
+}
+
+.badge-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+}
+
+.badge-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 190px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(44,255,5,0.09), transparent 68%),
+    var(--surface-tint);
+}
+
+.badge-art img {
+  height: 150px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.65));
+  transition: transform 260ms var(--ease);
+}
+
+.badge-card:hover .badge-art img {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.badge-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.badge-category {
+  font-size: 11px;
+  color: var(--accent);
+  border: 1px solid var(--border-hover);
+  border-radius: 5px;
+  padding: 3px 9px;
+}
+
+.badge-date {
+  font-size: 11.5px;
+  color: var(--muted-dim);
+  white-space: nowrap;
+}
+
+.badge-card h3 {
+  font-size: 16px;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.badge-issuer {
+  font-size: 12.5px;
+  color: var(--muted-dim);
+  margin-bottom: 12px;
+}
+
+.badge-issuer a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--border-hover);
+}
+
+.badge-issuer a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.badge-desc {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.badge-card.is-compact .badge-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.badge-card .achievement-tag-row {
+  margin-top: auto;
+}
+
+.badge-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button.achievement-link {
+  font-family: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.badge-links .achievement-link {
+  text-decoration: none;
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>evelyn@portfolio</title>
+<title>GhostPacket@portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,10 +15,10 @@
 <header class="site-header">
   <div class="container header-inner">
     <a href="#hero" class="logo" aria-label="eve portfolio home">
-      <span class="prompt">&gt;_</span> evelyn@portfolio
+      <span class="prompt">&gt;_</span> GhostPacket@portfolio
     </a>
     <div class="nav-cta">
-      <a href="resume.pdf" class="btn" id="resume-btn" target="_blank" rel="noopener">./resume.pdf</a>
+      <a href="#" class="btn" id="resume-btn" target="_blank" rel="noopener">./resume.pdf</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span>
       </button>
@@ -27,6 +27,7 @@
   <div class="mobile-menu" id="mobile-menu">
     <a href="#education" class="nav-link">education</a>
     <a href="#achievements" class="nav-link">achievements</a>
+    <a href="#badges" class="nav-link">badges</a>
     <a href="#competitions" class="nav-link">competitions</a>
     <a href="#writeups" class="nav-link">write-ups</a>
     <a href="#skills" class="nav-link">skills</a>
@@ -39,6 +40,7 @@
   <nav class="side-nav-list">
     <a href="#education" class="nav-link" data-section="education">education</a>
     <a href="#achievements" class="nav-link" data-section="achievements">achievements</a>
+    <a href="#badges" class="nav-link" data-section="badges">badges</a>
     <a href="#competitions" class="nav-link" data-section="competitions">competitions</a>
     <a href="#writeups" class="nav-link" data-section="writeups">write-ups</a>
     <a href="#skills" class="nav-link" data-section="skills">skills</a>
@@ -53,7 +55,7 @@
     <div class="terminal-window profile-card reveal" role="region" aria-label="Profile">
       <div class="terminal-titlebar">
         <span class="tb-dot"></span><span class="tb-dot"></span><span class="tb-dot"></span>
-        <span class="tb-name">evelyn@portfolio: whoami</span>
+        <span class="tb-name">GhostPacket@portfolio: whoami</span>
       </div>
 
       <div class="profile-body">
@@ -66,14 +68,13 @@
 
         <div class="profile-main">
           <div class="profile-heading">
-            <h1 class="profile-name">Evelyn</h1>
+            <h1 class="profile-name">GhostPacket (Evelyn)</h1>
             <span class="profile-handle">Benjarat Tamwong</span>
           </div>
           <p class="profile-role">CTF player &middot; Computer Engineering Student</p>
 
           <p class="profile-bio">
-            Building systems that stay boring in production — across the stack,
-            the network, and the occasional CTF challenge.
+            CTF challenges are things I occupy myself with.
           </p>
 
           <div class="profile-stats">
@@ -203,11 +204,30 @@
     </div>
   </section>
 
+  <!-- BADGES -->
+  <section id="badges">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">03 / badges</span>
+        <h2 class="section-title">Digital badges</h2>
+        <p class="section-desc">Verifiable Open Badges earned at CTFs and cybersecurity events &mdash; each one can be checked with the organization that issued it.</p>
+      </div>
+
+      <div class="badges-grid" id="badges-grid">
+        <!-- Rendered by script.js from js/badges_data.js (featured badges only) -->
+      </div>
+
+      <div class="project-more reveal" style="padding-top: 15px;">
+        <a href="badge.html" class="btn">view all badges &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- COMPETITION RESULTS -->
   <section id="competitions">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-tag">03 / competitions</span>
+        <span class="section-tag">04 / competitions</span>
         <h2 class="section-title">Competition results</h2>
         <p class="section-desc">CTFs and competitive programming events — what it was, and where I placed.</p>
       </div>
@@ -226,7 +246,7 @@
   <section id="writeups">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-tag">04 / write-ups</span>
+        <span class="section-tag">05 / write-ups</span>
         <h2 class="section-title">CTF write-ups</h2>
         <p class="section-desc">Walkthroughs from CTFs and training platforms — web, pwn, crypto, reversing, and forensics challenges.</p>
       </div>
@@ -245,8 +265,8 @@
   <section id="skills">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-tag">05 / system</span>
-        <h2 class="section-title">System Configuration</h2>
+        <span class="section-tag">06 / system</span>
+        <h2 class="section-title">Skills Configuration</h2>
       </div>
 
       <div class="skills-grid">
@@ -307,7 +327,7 @@
   <section id="contact">
     <div class="container">
     <div class="section-head reveal">
-      <span class="section-tag">06 / contact</span>
+      <span class="section-tag">07 / contact</span>
       <h2 class="section-title">Let's get in touch.</h2>
       <p class="section-desc">Reach out through whichever channel works best — I'll get back to you.</p>
     </div>
@@ -406,6 +426,7 @@
 <script src="js/writeup_data.js"></script>
 <script src="js/project_data.js"></script>
 <script src="js/achievements_data.js"></script>
+<script src="js/badges_data.js"></script>
 <script src="js/competitions_data.js"></script>
 <script src="js/script.js"></script>
 
@@ -414,6 +435,20 @@
   (function(){
     const list = document.getElementById('writeups-list');
     if(!list) return;
+
+    // Show a NEW badge for 7 days after the write-up's date (dd.mm.yyyy)
+    const NEW_WINDOW = 7 * 24 * 60 * 60 * 1000;
+
+    function isRecentWriteup(writeup){
+      const match = (writeup.date || '').match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+      if(!match) return false;
+
+      const added = new Date(match[3], match[2] - 1, match[1]).getTime();
+
+      return !isNaN(added) &&
+        Date.now() >= added &&
+        (Date.now() - added) < NEW_WINDOW;
+    }
 
     const items = (window.writeups || [])
       .slice()
@@ -427,7 +462,7 @@
     list.innerHTML = items.map(writeup => `
       <a href="writeups.html" class="blog-item">
         <div class="blog-main">
-          <div class="blog-title">${writeup.event}</div>
+          <div class="blog-title">${writeup.event}${isRecentWriteup(writeup) ? ' <span class="new-badge">NEW</span>' : ''}</div>
           <div class="blog-excerpt">${writeup.description}</div>
         </div>
         <span class="blog-meta">${writeup.date}</span>
@@ -442,6 +477,9 @@
   (function(){
     const list = document.getElementById('competition-list');
     if(!list) return;
+
+    // Homepage shows only the latest competitions; the rest live on competitions.html
+    const HOMEPAGE_COMPETITION_COUNT = 3;
 
     const items = (window.competitions || []).slice();
 
@@ -484,6 +522,9 @@
     items.sort((a, b) => {
       return parseCompetitionDate(b.date) - parseCompetitionDate(a.date);
     });
+
+    // Keep only the newest N after sorting
+    items.splice(HOMEPAGE_COMPETITION_COUNT);
 
     const years = [...new Set(items.map(yearOf))];
 

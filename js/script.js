@@ -14,7 +14,7 @@
   }));
 
   // ---------- Active nav on scroll ----------
-  const sections = ['education','achievements', 'competitions','writeups','skills','contact'];
+  const sections = ['education','achievements','badges','competitions','writeups','skills','contact'];
   const navLinks = document.querySelectorAll('.nav-link[data-section]');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -83,6 +83,61 @@
         </article>`;
     }).join('');
     achievementsGridEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  }
+
+  // ---------- Badges (shared card template + homepage strip) ----------
+  // badge.html reuses window.badgeCardHTML, so the card looks identical
+  // on both pages.
+  function isRecentBadge(b){
+    if(!b.date) return false;
+    const issued = Date.parse(b.date);
+    return !isNaN(issued) && (Date.now() - issued) < TWO_WEEKS_MS;
+  }
+
+  window.badgeCardHTML = function(key, opts){
+    const b = (window.badges || {})[key];
+    if(!b) return '';
+    const compact = !!(opts && opts.compact);
+    const detailsHref = (opts && opts.detailsHref) ? opts.detailsHref : '';
+    const detailsBtn = (opts && opts.detailsButton);
+    const tags = (b.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+    const issuer = b.issuerUrl
+      ? `<a href="${b.issuerUrl}" target="_blank" rel="noopener noreferrer">${b.issuer}</a>`
+      : b.issuer;
+    const details = detailsBtn
+      ? `<button type="button" class="achievement-link" data-badge="${key}">details</button>`
+      : (detailsHref ? `<a href="${detailsHref}" class="achievement-link">details</a>` : '');
+    const verify = b.verify
+      ? `<a href="${b.verify}" target="_blank" rel="noopener noreferrer" class="achievement-link">verify &nearr;</a>`
+      : '';
+    return `
+      <article class="badge-card${compact ? ' is-compact' : ''} ${opts && opts.reveal ? 'reveal' : ''}" id="badge-${key}">
+        <div class="badge-art">
+          <img src="${b.image}" alt="${b.name} badge" loading="lazy">
+        </div>
+        <div class="badge-top">
+          <span class="badge-category">${b.category || ''}</span>
+          <span class="badge-date">${b.date || ''}</span>
+        </div>
+        <h3>${b.name}${isRecentBadge(b) ? ' <span class="new-badge">NEW</span>' : ''}</h3>
+        <div class="badge-issuer">issued by ${issuer}</div>
+        <p class="badge-desc">${b.description || ''}</p>
+        <div class="achievement-tag-row">${tags}</div>
+        <div class="badge-links">${details}${verify}</div>
+      </article>`;
+  };
+
+  const badgesGridEl = document.getElementById('badges-grid');
+  if(badgesGridEl && window.badges){
+    const order = (window.badgeOrder || Object.keys(window.badges))
+      .slice()
+      .sort((a, b) => (Date.parse(window.badges[b].date) || 0) - (Date.parse(window.badges[a].date) || 0));
+    const HOMEPAGE_BADGE_COUNT = 4;
+    const featured = order.filter(key => window.badges[key].featured).slice(0, HOMEPAGE_BADGE_COUNT);
+    badgesGridEl.innerHTML = featured.map(key =>
+      window.badgeCardHTML(key, { compact: true, reveal: true, detailsHref: 'badge.html#' + key })
+    ).join('');
+    badgesGridEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   }
 
   // ---------- Homepage featured project grid ----------
