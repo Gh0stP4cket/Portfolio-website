@@ -70,6 +70,14 @@ window.writeups = [
     description: "Technical write-ups and solutions from DEADFACE CTF 2026",
     tags: ["Cryptography", "github"],
     url: "https://github.com/Gh0stP4cket/deadface-2026-writeups"
+  },
+  {
+    event: "picoCTF 2026 - Shift Registers",
+    slug: "picoctf-2026-shift-registers",
+    date: "28.10.2026",
+    description: "Exploiting a weak LFSR implementation through brute force and XOR decryption.",
+    tags: ["Cryptography", "Medium"],
+    url: "https://medium.com/@inthepondddd/shift-registers-picoctf-2026-cryptography-write-up-bef975dff9ec"
   }
 ];
 
